@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For u ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background: radial-gradient(circle at top,#ffd1dc,#ff9a9e,#ff758c);
+  overflow-x:hidden;
+  text-align:center;
+  color:#333;
+}
+
+.start-screen{
+  position:fixed;
+  width:100%;
+  height:100vh;
+  background:linear-gradient(135deg,#ff758c,#ff7eb3);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  z-index:10;
+  color:white;
+}
+
+.start-screen button{
+  padding:15px 35px;
+  font-size:20px;
+  border:none;
+  border-radius:40px;
+  background:white;
+  color:#e91e63;
+  cursor:pointer;
+  margin-top:20px;
+  font-weight:bold;
+}
+
+.hidden{display:none;}
+
+.header img{
+  width:100%;
+  max-height:400px;
+  object-fit:cover;
+  border-bottom-left-radius:30px;
+  border-bottom-right-radius:30px;
+}
+
+.message-box{
+  width:90%;
+  max-width:650px;
+  margin:40px auto;
+  padding:40px;
+  border-radius:30px;
+  backdrop-filter:blur(10px);
+  background:rgba(255,255,255,0.92);
+  box-shadow:0 15px 40px rgba(0,0,0,0.25);
+  animation:fadeIn 1.5s ease;
+}
+
+h1{
+  font-size:32px;
+  font-weight:700;
+  background:linear-gradient(45deg,#e91e63,#ff4081);
+  background-clip:text;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin-bottom:20px;
+}
+
+#storyText,
+#questionText{
+  line-height:1.8;
+  letter-spacing:1px;
+  margin:20px 0;
+  padding:0 10px;
+}
+
+#loveStory{
+  font-size:20px;
+  min-height:60px;
+}
+
+button{
+  padding:14px 30px;
+  margin:10px;
+  font-size:18px;
+  border:none;
+  border-radius:50px;
+  cursor:pointer;
+  transition:0.3s;
+  box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
+
+#yesBtn{background:#e91e63;color:white;}
+#noBtn{background:#555;color:white;position:relative;}
+
+.heart{
+  position:fixed;
+  bottom:-10px;
+  animation:floatUp 6s linear infinite;
+}
+
+@keyframes floatUp{
+  0%{transform:translateY(0);opacity:1;}
+  100%{transform:translateY(-100vh);opacity:0;}
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:scale(0.9);}
+  to{opacity:1;transform:scale(1);}
+}
+
+/* POPUP OVERLAY */
+.popup-overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.6);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  visibility:hidden;
+  opacity:0;
+  transition:0.4s;
+  z-index:20;
+}
+.popup{
+  background:white;
+  width:90%;
+  max-width:500px;
+  padding:30px;
+  border-radius:25px;
+  text-align:center;
+  position:relative;
+  animation:popupFade 0.6s ease;
+}
+@keyframes popupFade{
+  from{transform:scale(0.7);opacity:0;}
+  to{transform:scale(1);opacity:1;}
+}
+.show-popup{
+  visibility:visible;
+  opacity:1;
+}
+
+/* Slideshow fade effect */
+.slide{
+  display:none;
+  animation:fadeZoom 1s ease;
+}
+.active{display:block;}
+@keyframes fadeZoom{
+  from{opacity:0;transform:scale(0.9);}
+  to{opacity:1;transform:scale(1);}
+}
+
+/* Slideshow nav buttons */
+.prev, .next{
+  cursor:pointer;
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:rgba(0,0,0,0.5);
+  color:white;
+  padding:10px 15px;
+  border-radius:50%;
+  font-size:20px;
+}
+.prev{left:10px;}
+.next{right:10px;}
+
+/* ================= EXTRA ATTRACTIVE ENHANCEMENTS ================= */
+
+/* Stars */
+#stars{
+  position:fixed;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  pointer-events:none;
+  z-index:0;
+  overflow:hidden;
+}
+
+.star{
+  position:absolute;
+  width:2px;
+  height:2px;
+  background:white;
+  border-radius:50%;
+  opacity:0;
+  animation:twinkle 2s infinite;
+}
+
+@keyframes twinkle{
+  0%,100%{opacity:0;}
+  50%{opacity:1;}
+}
+
+/* Image hover glow */
+#mainImage:hover, .slide img:hover{
+  box-shadow: 0 0 30px 10px rgba(255, 192, 203, 0.6);
+  transform: scale(1.05);
+  transition: all 0.5s ease;
+}
+
+/* Glow behind popup */
+#finalPopup.show-popup::before{
+  content:"";
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:500px;
+  height:500px;
+  background: radial-gradient(circle, rgba(255,192,203,0.4), rgba(255,192,203,0));
+  border-radius:50%;
+  z-index:-1;
+  animation:glowPulse 2s infinite alternate;
+}
+
+@keyframes glowPulse{
+  from{transform:translate(-50%,-50%) scale(1);}
+  to{transform:translate(-50%,-50%) scale(1.1);}
+}
+</style>
+</head>
+<body>
+
+<!-- START SCREEN -->
+<div class="start-screen" id="startScreen">
+  <h1>For Someone Very Special ❤️</h1>
+  <button onclick="startSurprise()">Click to Start 💕</button>
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="image/romantic-music.mp3" type="audio/mpeg">
+</audio>
+
+<div id="mainContent" class="hidden">
+  <div class="header">
+    <img src="image/image1.jpeg" alt="Memory" style="max-height:500px; border-radius:20px;">
+  </div>
+
+  <div class="message-box">
+    <h1>Happy Valentine's Day ❤️</h1>
+    <div id="loveStory">
+      <p id="storyText"></p>
+    </div>
+
+    <!-- MAIN IMAGE -->
+    <img id="mainImage" src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExdmEwbnF1YjkwM2hvZTloZHhpMDZtc2I2aG40djNwdmNldmtiNWNmMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif" style="max-width:300px;border-radius:20px;margin-bottom:20px;">
+
+    <h2 id="questionText">Will you be my Valentine? 💕</h2>
+
+    <button id="yesBtn" onclick="handleYes()">Yes 💖</button>
+    <button id="noBtn" onclick="handleNo()">No 😢</button>
+  </div>
+</div>
+
+<!-- FINAL POPUP -->
+<div class="popup-overlay" id="finalPopup">
+  <div class="popup">
+    <h2> Yay!🙄❤️</h2>
+    <!-- Added Image -->
+    <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3dDZjeWhyaXdlMXN6cnVyYnhlaHlocDZwM3JoMmlnNDM4MXVoM3ozbyZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/Rt0ILm8fou5TVx47xv/giphy.gif" alt="Romantic Couple" style="width:100%; max-width:400px; border-radius:20px; margin-bottom:20px;">
+    <p style="line-height:1.7;margin-bottom:20px;">
+      I am the happiest person alive!<br>
+      I promise to always be there for you, laugh with you,<br>
+      and be by your side through everything 💕
+    </p>
+    <button onclick="alert('وصف طيري شتك بحالا تقتي راسك')">See more💖</button>
+  </div>
+</div>
+
+<!-- ================= Twinkling Stars Background ================= -->
+<div id="stars"></div>
+
+<script>
+let stage = 1;
+let noMoveEnabled = false;
+let hearts = ["❤️","💖","💕","💘","💝"];
+let storyLines = [
+  "The day we met was my favorite accident ❤️",
+  "Every laugh with you feels like magic ✨",
+  "You are my peace, my chaos, my everything 💕",
+  "I want to create a lifetime of memories with you 🌟",
+  "And you know what ? ",
+  "I want us to stay side by side forever 💕",
+];
+
+function startSurprise(){
+  document.getElementById("startScreen").classList.add("hidden");
+  document.getElementById("mainContent").classList.remove("hidden");
+
+  const music = document.getElementById("bgMusic");
+  music.play().catch(()=>{});
+
+  setInterval(createHeart,400);
+  playLoveStory();
+}
+
+function typeText(element,text,speed=40){
+  element.innerHTML="";
+  let i=0;
+  function typing(){
+    if(i<text.length){
+      element.innerHTML+=text[i]===" "?"&nbsp;":text[i];
+      i++;
+      setTimeout(typing,speed);
+    }
+  }
+  typing();
+}
+
+function playLoveStory(){
+  const storyText = document.getElementById("storyText");
+  let i = 0;
+  function nextLine(){
+    if(i < storyLines.length){
+      typeText(storyText,storyLines[i],35);
+      i++;
+      setTimeout(nextLine,3000);
+    }
+  }
+  nextLine();
+}
+
+function createHeart(){
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = hearts[Math.floor(Math.random()*hearts.length)];
+  heart.style.left = Math.random()*100+"vw";
+  heart.style.fontSize = Math.random()*20+15+"px";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),6000);
+}
+
+function handleYes(){
+  const question = document.getElementById("questionText");
+  const mainImage = document.getElementById("mainImage");
+  mainImage.src = "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3MzlmMnZrcGUwOGhpMzZ4eW4yNzlrcHgzOTN4Z2x2aG9sN296bmFoZCZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/B4ORVnBvJCVvq/giphy.gif";
+  
+  if(stage === 1){
+    typeText(question,"Will you be my Valentine ? just say No😘");
+    stage = 2;
+  } else if(stage === 2){
+    typeText(question,"Whatever😒");
+    stage = 3;
+  } else {
+    showFinale();
+  }
+}
+
+function handleNo(){
+  const question = document.getElementById("questionText");
+  const mainImage = document.getElementById("mainImage");
+  if(!noMoveEnabled){
+    typeText(question,"Thanks GOD!!🥳 ");
+    mainImage.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExc3QwNHkzMXBwY2E0emhhZDkwZGltOGFvMnc4eWZzZ2luMTl5d2RmZiZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/eeodsmj12xwj4IDRCs/giphy.gif";
+    noMoveEnabled = true;
+  }
+}
+
+document.addEventListener("mouseover",function(e){
+  const noBtn = document.getElementById("noBtn");
+  if(noMoveEnabled && e.target === noBtn){
+    const x = Math.random()*window.innerWidth-100;
+    const y = Math.random()*window.innerHeight-50;
+    noBtn.style.position = "fixed";
+    noBtn.style.left = x+"px";
+    noBtn.style.top = y+"px";
+  }
+});
+
+// ================= Confetti =================
+function createConfetti(){
+  for(let i=0;i<150;i++){
+    const confetti=document.createElement("div");
+    confetti.style.position="fixed";
+    confetti.style.width="8px";
+    confetti.style.height="8px";
+    confetti.style.background=`hsl(${Math.random()*360},100%,50%)`;
+    confetti.style.left=Math.random()*window.innerWidth+"px";
+    confetti.style.top="-10px";
+    confetti.style.transition="top 3s linear, transform 3s";
+    document.body.appendChild(confetti);
+
+    setTimeout(()=>{
+      confetti.style.top=window.innerHeight+"px";
+      confetti.style.transform=`rotate(${Math.random()*500}deg)`;
+    },10);
+
+    setTimeout(()=>confetti.remove(),3000);
+  }
+}
+
+// ================= Balloons =================
+function createBalloons(){
+  const colors = ["#FF4081","#FFEB3B","#4CAF50","#2196F3","#E91E63"];
+  for(let i=0;i<30;i++){
+    const balloon = document.createElement("div");
+    balloon.innerHTML = "🎈";
+    balloon.style.position = "fixed";
+    balloon.style.fontSize = Math.random()*40+30+"px";
+    balloon.style.left = Math.random()*window.innerWidth+"px";
+    balloon.style.top = "-50px";
+    balloon.style.transition = "top 5s linear";
+    document.body.appendChild(balloon);
+    setTimeout(()=>{ balloon.style.top = window.innerHeight+50+"px"; },10);
+    setTimeout(()=>balloon.remove(),5000);
+  }
+}
+
+// ================= Final Show =================
+function showFinale(){
+  createConfetti();
+  createBalloons();
+  document.getElementById("mainImage").src="image/19-02-52-8_512.webp";
+  document.getElementById("questionText").innerHTML=
+  "You just made me the happiest person alive 💍❤️<br><br>I love you forever.";
+  document.getElementById("finalPopup").classList.add("show-popup");
+}
+
+// ================= EXTRA ATTRACTIVE ENHANCEMENTS =================
+
+// Twinkling Stars
+for(let i=0;i<100;i++){
+  const star = document.createElement("div");
+  star.classList.add("star");
+  star.style.left = Math.random()*window.innerWidth + "px";
+  star.style.top = Math.random()*window.innerHeight + "px";
+  star.style.animationDuration = (1+Math.random()*2) + "s";
+  document.getElementById("stars").appendChild(star);
+}
+
+// Floating Love Messages
+const loveMessages = ["I ❤️ You", "Forever 💍", "Kisses 💋", "My Valentine 💖"];
+function createFloatingMessages(){
+  const msg = document.createElement("div");
+  msg.innerHTML = loveMessages[Math.floor(Math.random()*loveMessages.length)];
+  msg.style.position = "fixed";
+  msg.style.left = Math.random()*window.innerWidth + "px";
+  msg.style.top = Math.random()*window.innerHeight + "px";
+  msg.style.fontSize = Math.random()*25+15 + "px";
+  msg.style.color = "rgba(255,255,255,0.8)";
+  msg.style.fontWeight = "bold";
+  msg.style.pointerEvents = "none";
+  document.body.appendChild(msg);
+  setTimeout(()=>msg.remove(), 5000);
+}
+setInterval(createFloatingMessages, 1200);
+
+// Floating Hearts
+function createFloatingHearts(){
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.style.left = Math.random()*window.innerWidth + "px";
+  heart.style.fontSize = Math.random()*25+10 + "px";
+  heart.innerHTML = ["❤️","💖","💕","💘","💝"][Math.floor(Math.random()*5)];
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(), 7000);
+}
+setInterval(createFloatingHearts, 700);
+
+// Heart Burst on main image click
+document.getElementById("mainImage").addEventListener("click", function(e){
+  for(let i=0;i<12;i++){
+    const h = document.createElement("div");
+    h.innerHTML = "💖";
+    h.style.position = "fixed";
+    h.style.left = e.clientX + (Math.random()*100-50) + "px";
+    h.style.top = e.clientY + (Math.random()*100-50) + "px";
+    h.style.fontSize = Math.random()*20+10+"px";
+    h.style.pointerEvents = "none";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),1500);
+  }
+});
+</script>
+</body>
+</html>
