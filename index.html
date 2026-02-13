@@ -265,7 +265,7 @@ button{
     <!-- MAIN IMAGE -->
     <img id="mainImage" src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExdmEwbnF1YjkwM2hvZTloZHhpMDZtc2I2aG40djNwdmNldmtiNWNmMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif" style="max-width:300px;border-radius:20px;margin-bottom:20px;">
 
-    <h2 id="questionText">Will you be my Valentine? 💕</h2>
+    <h2 id="questionText">Will you be my Valentine? just say No😘</h2>
 
     <button id="yesBtn" onclick="handleYes()">Yes 💖</button>
     <button id="noBtn" onclick="handleNo()">No 😢</button>
@@ -282,6 +282,7 @@ button{
       I am the happiest person alive!<br>
       I promise to always be there for you, laugh with you,<br>
       and be by your side through everything 💕
+      "Just kidding"
     </p>
     <button onclick="alert('وصف طيري شتك بحالا تقتي راسك')">See more💖</button>
   </div>
@@ -295,12 +296,10 @@ let stage = 1;
 let noMoveEnabled = false;
 let hearts = ["❤️","💖","💕","💘","💝"];
 let storyLines = [
-  "The day we met was my favorite accident ❤️",
-  "Every laugh with you feels like magic ✨",
-  "You are my peace, my chaos, my everything 💕",
-  "I want to create a lifetime of memories with you 🌟",
-  "And you know what ? ",
-  "I want us to stay side by side forever 💕",
+"I'm really grateful our paths crossed.",
+  "Life feels better with you in it✨",
+  "No mattre where life takes us",
+  "I'll always wishing you the best💕",
 ];
 
 function startSurprise(){
@@ -356,7 +355,7 @@ function handleYes(){
   mainImage.src = "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3MzlmMnZrcGUwOGhpMzZ4eW4yNzlrcHgzOTN4Z2x2aG9sN296bmFoZCZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/B4ORVnBvJCVvq/giphy.gif";
   
   if(stage === 1){
-    typeText(question,"Will you be my Valentine ? just say No😘");
+    typeText(question,"Are you sure?🤨");
     stage = 2;
   } else if(stage === 2){
     typeText(question,"Whatever😒");
@@ -493,4 +492,5 @@ document.getElementById("mainImage").addEventListener("click", function(e){
 });
 </script>
 </body>
+
 </html>
